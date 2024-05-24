@@ -1,0 +1,49 @@
+openapi: 3.1.0
+info:
+  title: kadai-api
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8001
+paths:
+  /api/first:
+    get:
+      summary: トークン認証ができているか確認する
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+  /api/sanctum/token:
+    post:
+      summary: トークンを生成する
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    example: "1|6B5tMpZ617rcvXQLJqGB4..."
+        '400':
+          description: "no user"
