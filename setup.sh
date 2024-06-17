@@ -1,16 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
-# .envファイルの作成
-cp .env.example .env
+docker-compose up -d --build
 
-# Composerのインストールと依存関係のインストール
-composer install
+echo 'Waiting for kadai-app to be ready...';
+sleep 60
 
-# アプリケーションキーの生成
-php artisan key:generate
 
-# データベースのマイグレーション
-php artisan migrate
-
-# シーディング
-php artisan db:seed
+docker-compose exec php sh -c 'composer dump-autoload'
+docker-compose exec app sh -c 'php artisan migrate --seed'
