@@ -1,8 +1,8 @@
 #!/bin/sh
 
-cp .env.example .env
-
 docker-compose up -d --build
+
+cp ./src/.env.example ./src/.env
 
 echo 'Waiting for kadai-app to be ready...';
 sleep 10

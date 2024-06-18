@@ -6,6 +6,15 @@ services:
       dockerfile: ./docker/app/Dockerfile
     volumes:
       - ./src/:/app
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: database
+      DB_USERNAME: user
+      DB_PASSWORD: password
+    depends_on:
+      - db
   web:
     build:
       context: .
@@ -21,7 +30,7 @@ services:
       context: .
       dockerfile: ./docker/db/Dockerfile
     ports:
-      - 3307:3306
+      - 3306:3306
     environment:
       MYSQL_DATABASE: database
       MYSQL_USER: user
@@ -33,5 +42,3 @@ services:
 
 volumes:
   mysql-volume:
-
-
